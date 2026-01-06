@@ -60,29 +60,18 @@ def Spin_Right():
     '''
     spin right 360 degrees
     '''
-    for i in range(10):
+    for i in range(12):
         Left_Object_Distance = robot.left_sonar()
         Right_Object_Distance = robot.right_sonar()
         if Left_Object_Distance > 5 and Right_Object_Distance > 5:
             Block = "No"
-            for i in range(36):
-                Turn_Clock(0.01)
-                Forward(0.01)
-        elif Left_Object_Distance <= 5 or Right_Object_Distance <= 5:
-            Block = "Yes"
-    for i in range(7):
-        Left_Object_Distance = robot.left_sonar()
-        Right_Object_Distance = robot.right_sonar()
-        if Left_Object_Distance > 5 and Right_Object_Distance > 5:
-            Block = "No"
-            Turn_Clock(0.01)
-            Forward(0.01)
+            Turn_Clock(30*degree)
         elif Left_Object_Distance <= 5 or Right_Object_Distance <= 5:
             Block = "Yes"
     if Block == "Yes":
         print("Uh oh! There's something in my way.")
 
-def Square_Left(): #off
+def Square_Left():
     '''
     make a square moving left
     '''
@@ -92,53 +81,45 @@ def Square_Left(): #off
             Right_Object_Distance = robot.right_sonar()
             if Left_Object_Distance > 5 and Right_Object_Distance > 5:
                 Block = "No"
-                Forward(0.5)    
+                Forward(0.5)
             elif Left_Object_Distance <= 5 or Right_Object_Distance <= 5:
                 Block = "Yes"
-        for i in range(2):
+        for i in range(3):
             Left_Object_Distance = robot.left_sonar()
             Right_Object_Distance = robot.right_sonar()
             if Left_Object_Distance > 5 and Right_Object_Distance > 5:
                 Block = "No"
-                Turn_Counter_Clock(0.5)
-            elif Left_Object_Distance <= 5 or Right_Object_Distance <= 5:
-                Block = "Yes"
-        for i in range(1):
-            Left_Object_Distance = robot.left_sonar()
-            Right_Object_Distance = robot.right_sonar()
-            if Left_Object_Distance > 5 and Right_Object_Distance > 5:
-                Block = "No"
-                Turn_Counter_Clock(0.403)
+                Turn_Counter_Clock(30*degree)
             elif Left_Object_Distance <= 5 or Right_Object_Distance <= 5:
                 Block = "Yes"
     if Block == "Yes":
         print("Uh oh! There's something in my way.")
 
-def Square_Right(): #off
+def Square_Right():
     '''
     make a square moving right
     '''
     for i in range(4):
-        for i in range(5):
+        for i in range(4):
             Left_Object_Distance = robot.left_sonar()
             Right_Object_Distance = robot.right_sonar()
             if Left_Object_Distance > 5 and Right_Object_Distance > 5:
                 Block = "No"
-                Forward(0.4)    
+                Forward(0.5)
             elif Left_Object_Distance <= 5 or Right_Object_Distance <= 5:
                 Block = "Yes"
-        for i in range(92):
+        for i in range(3):
             Left_Object_Distance = robot.left_sonar()
             Right_Object_Distance = robot.right_sonar()
             if Left_Object_Distance > 5 and Right_Object_Distance > 5:
                 Block = "No"
-                Turn_Clock(0.01525)
+                Turn_Clock(30*degree)
             elif Left_Object_Distance <= 5 or Right_Object_Distance <= 5:
                 Block = "Yes"
     if Block == "Yes":
         print("Uh oh! There's something in my way.")
 
-def Turn_Left(Turn_Amount): #off
+def Turn_Left(Turn_Amount): ###
     '''
     turn left 'Turn_Amount' degrees
     '''
@@ -160,7 +141,7 @@ def Turn_Left(Turn_Amount): #off
     if Block == "Yes":
         print("Uh oh! There's something in my way.")
 
-def Turn_Right(Turn_Amount): #off
+def Turn_Right(Turn_Amount):
     '''
     turn right 'Turn_Amount' degrees
     '''
@@ -182,27 +163,42 @@ def Turn_Right(Turn_Amount): #off
     if Block == "Yes":
         print("Uh oh! There's something in my way.")
 
-def Forward_Trick(Forward_Amount): #off
+def Forward_Trick(Forward_Amount):
     '''
     go forward 'Forward_Amount' seconds
     '''
-    for i in range((Forward_Amount) * 10):
+    if int(Forward_Amount) < 0.5:
         Left_Object_Distance = robot.left_sonar()
         Right_Object_Distance = robot.right_sonar()
         if Left_Object_Distance > 5 and Right_Object_Distance > 5:
             Block = "No"
-            Forward(float(Forward_Amount)/10)
+            Forward(Forward_Amount)
         elif Left_Object_Distance <= 5 or Right_Object_Distance <= 5:
             Block = "Yes"
-    if Block == "Yes":
-        print("Uh oh! There's something in my way.")
+    else:
+        for i in range(int((Forward_Amount)*2)):
+            Left_Object_Distance = robot.left_sonar()
+            Right_Object_Distance = robot.right_sonar()
+            if Left_Object_Distance > 5 and Right_Object_Distance > 5:
+                Block = "No"
+                Forward(0.5)
+            elif Left_Object_Distance <= 5 or Right_Object_Distance <= 5:
+                Block = "Yes"
+        Left_Object_Distance = robot.left_sonar()
+        Right_Object_Distance = robot.right_sonar()
+        if Left_Object_Distance > 5 and Right_Object_Distance > 5:
+            Block = "No"
+            Forward(((Forward_Amount)*2)-(int((Forward_Amount)*2)))
+        elif Left_Object_Distance <= 5 or Right_Object_Distance <= 5:
+            Block = "Yes"
+        if Block == "Yes":
+            print("Uh oh! There's something in my way.")
 
-def Backward_Trick(Backward_Amount): #off
+def Backward_Trick(Backward_Amount):
     '''
     go backward 'Backward_Amount' seconds
     '''
-    for i in range((Backward_Amount) * 10):
-        Backward(float(Backward_Amount)/10)
+    Backward(Backward_Amount)
 
 ############################################################################################################
 
@@ -302,7 +298,7 @@ while True:
                 Request = "D"
                 break
             else:
-                What_Trick = input("Please respond with, S, R, --, or --. ")
+                What_Trick = input("Please respond with S, Q, N, F, B, R, or L. ")
     elif Request == "D":
         print("Okay, goodbye, I am powering down.")
         break
