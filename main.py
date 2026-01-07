@@ -38,5 +38,6 @@ if Auto_Swerve == True:
     if Right_Object_Distance < 5:
         Turn_Left(5)
 
+Turn_Left(90*(6.12/360))
 
 robot.exit()

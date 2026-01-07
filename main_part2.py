@@ -119,49 +119,67 @@ def Square_Right():
     if Block == "Yes":
         print("Uh oh! There's something in my way.")
 
-def Turn_Left(Turn_Amount): ###
+def Turn_Left(Turn_Amount):
     '''
     turn left 'Turn_Amount' degrees
     '''
-    for i in range(round(((Turn_Amount)*(6.12/180)))-1):
-        Left_Object_Distance = robot.left_sonar() #centimeters
-        Right_Object_Distance = robot.right_sonar() #centimeters
+    if int(Turn_Amount) < 30:
+        Left_Object_Distance = robot.left_sonar()
+        Right_Object_Distance = robot.right_sonar()
         if Left_Object_Distance > 5 and Right_Object_Distance > 5:
             Block = "No"
-            Turn_Counter_Clock((180/6.12)*(degree)) # turn 0.5 seconds
+            Turn_Counter_Clock(Turn_Amount*degree)
         elif Left_Object_Distance <= 5 or Right_Object_Distance <= 5:
             Block = "Yes"
-    Left_Object_Distance = robot.left_sonar() #centimeters
-    Right_Object_Distance = robot.right_sonar() #centimeters
-    if Left_Object_Distance > 5 and Right_Object_Distance > 5:
-        Block = "No"
-        Turn_Counter_Clock((((Turn_Amount)*degree)-(round((Turn_Amount)*(6.12/180))))+((180/6.12)*(degree)))
-    elif Left_Object_Distance <= 5 or Right_Object_Distance <= 5:
-        Block = "Yes"
-    if Block == "Yes":
-        print("Uh oh! There's something in my way.")
+    else:
+        for i in range(int((Turn_Amount)/30)):
+            Left_Object_Distance = robot.left_sonar()
+            Right_Object_Distance = robot.right_sonar()
+            if Left_Object_Distance > 5 and Right_Object_Distance > 5:
+                Block = "No"
+                Turn_Counter_Clock(30*degree)
+            elif Left_Object_Distance <= 5 or Right_Object_Distance <= 5:
+                Block = "Yes"
+        Left_Object_Distance = robot.left_sonar()
+        Right_Object_Distance = robot.right_sonar()
+        if Left_Object_Distance > 5 and Right_Object_Distance > 5:
+            Block = "No"
+            Turn_Counter_Clock(((Turn_Amount)/30)-(int((Turn_Amount)/30)))
+        elif Left_Object_Distance <= 5 or Right_Object_Distance <= 5:
+            Block = "Yes"
+        if Block == "Yes":
+            print("Uh oh! There's something in my way.")
 
 def Turn_Right(Turn_Amount):
     '''
     turn right 'Turn_Amount' degrees
     '''
-    for i in range(round(((Turn_Amount)*(6.12/180)))-1):
-        Left_Object_Distance = robot.left_sonar() #centimeters
-        Right_Object_Distance = robot.right_sonar() #centimeters
+    if int(Turn_Amount) < 30:
+        Left_Object_Distance = robot.left_sonar()
+        Right_Object_Distance = robot.right_sonar()
         if Left_Object_Distance > 5 and Right_Object_Distance > 5:
             Block = "No"
-            Turn_Clock((180/6.12)*(degree)) # turn 0.5 seconds
+            Turn_Clock(Turn_Amount*degree)
         elif Left_Object_Distance <= 5 or Right_Object_Distance <= 5:
             Block = "Yes"
-    Left_Object_Distance = robot.left_sonar() #centimeters
-    Right_Object_Distance = robot.right_sonar() #centimeters
-    if Left_Object_Distance > 5 and Right_Object_Distance > 5:
-        Block = "No"
-        Turn_Clock((((Turn_Amount)*degree)-(round((Turn_Amount)*(6.12/180))))+((180/6.12)*(degree)))
-    elif Left_Object_Distance <= 5 or Right_Object_Distance <= 5:
-        Block = "Yes"
-    if Block == "Yes":
-        print("Uh oh! There's something in my way.")
+    else:
+        for i in range(int((Turn_Amount)/30)):
+            Left_Object_Distance = robot.left_sonar()
+            Right_Object_Distance = robot.right_sonar()
+            if Left_Object_Distance > 5 and Right_Object_Distance > 5:
+                Block = "No"
+                Turn_Clock(30*degree)
+            elif Left_Object_Distance <= 5 or Right_Object_Distance <= 5:
+                Block = "Yes"
+        Left_Object_Distance = robot.left_sonar()
+        Right_Object_Distance = robot.right_sonar()
+        if Left_Object_Distance > 5 and Right_Object_Distance > 5:
+            Block = "No"
+            Turn_Clock(((Turn_Amount)/30)-(int((Turn_Amount)/30)))
+        elif Left_Object_Distance <= 5 or Right_Object_Distance <= 5:
+            Block = "Yes"
+        if Block == "Yes":
+            print("Uh oh! There's something in my way.")
 
 def Forward_Trick(Forward_Amount):
     '''
@@ -205,7 +223,7 @@ def Backward_Trick(Backward_Amount):
 Request = input("Hello, I am a robot! I can do cool tricks! If you want to know what tricks I can do and how to request them, reply T, and if you want me to power down, reply D. ")
 while True:
     if Request == "T":
-        What_Trick = input("I can spin for S, do a square for Q, turn for N, go forward for F, go backward for B, turn right for R, and turn left for L. ")
+        What_Trick = input("I can spin for S, do a square for Q, turn right for R, turn left for L, turn for N, go forward for F, and go backward for B. ")
         while True:
             if What_Trick == "S":
                 Spin_Direction = input("Would you like to spin left for L or right for R? ")
